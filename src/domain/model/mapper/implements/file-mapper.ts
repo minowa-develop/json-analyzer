@@ -5,7 +5,7 @@ import { RequestMapable } from "../request-mapable";
 export class FileMapper implements RequestMapable {
   public map(json: Array<object>): RequestData {
     const requestData = new RequestData();
-    requestData.setFields(JsonToRecord.convert((json as any).fields));
+    requestData.setFields(JsonToRecord.convert(json));
 
     return requestData;
   }
