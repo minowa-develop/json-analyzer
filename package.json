@@ -18,6 +18,8 @@
   },
   "main": "dist-electron/main.js",
   "dependencies": {
+    "@lit/context": "^1.1.6",
+    "@shoelace-style/shoelace": "^2.20.1",
     "@vaadin/router": "^2.0.0",
     "lit": "^3.3.1",
     "xlsx": "^0.18.5"

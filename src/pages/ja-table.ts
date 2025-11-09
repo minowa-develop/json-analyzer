@@ -2,6 +2,7 @@ import { css, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { RequestData } from "../domain/model/request-data";
 import { ColumnKey } from "../constants/column-key-relation";
+import { Router } from "@vaadin/router";
 
 const TAG = 'ja-table';
 
@@ -10,12 +11,19 @@ export class JaTable extends LitElement {
   @property({type: Array}) private data: Array<RequestData> = [];
   @property({type: Array}) private columns: Array<ColumnKey> = [];
 
+  private goDetail(index: number) {
+    return () => {
+      localStorage.setItem('detail', JSON.stringify(this.data[index].getFields()));
+      Router.go(`/detail/${index}`);
+    };
+  }
+
   private renderRows(data: Array<RequestData>) {
     return data.map(d => html`<tr>${this.viewData(d)}</tr>`);
   }
 
   private viewData(data: RequestData) {
-    return this.columns.filter(column => !column.hidden).map(column => html`<td>${data.get(column.key)}</td>`);
+    return this.columns.filter(column => !column.hidden).map((column, idx) => html`<td @click=${this.goDetail(idx)}>${data.get(column.key)}</td>`);
   }
 
   private viewRow(row: Array<string>): TemplateResult {
